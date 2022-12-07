@@ -38,7 +38,7 @@ export class SaerchPresenter {
     // params consistency check
     if (!userNick) {
       this.params.errorMsg[1]("missing user nick");
-      return;
+      throw null;
     }
 
     // actual user request request error treatment
@@ -51,6 +51,8 @@ export class SaerchPresenter {
       this.params.errorMsg[1](
         err.response?.data.message || 'Unidentified error :"('
       );
+
+      throw error;
     }
 
     return userInfo;

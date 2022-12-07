@@ -35,10 +35,11 @@ html
       margin-bottom: .5rem
 
     .g-form-field__input-wrapper
-      height: 2rem
+      height: calc(2rem - 4px)
       display: flex
       flex-direction: row
       border: 2px solid transparent
+      border-radius: calc($border-radius-g-interactives + 0.1rem)
       transition: border 500ms
 
       .g-form-field__input-icon
@@ -66,7 +67,6 @@ html
 
     .g-form-field__input-wrapper--rejected
       border: 2px solid $color-error
-      border-radius: $border-radius-g-interactives
 
 .g-button
   background-color: $color-primary
