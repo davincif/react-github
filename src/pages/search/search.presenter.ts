@@ -34,20 +34,19 @@ export class SaerchPresenter {
   ) {
     event.stopPropagation();
     event.preventDefault();
-    console.log("userNick", userNick);
 
+    // params consistency check
     if (!userNick) {
-      this.params.errorMsg[1]("missing userNick");
+      this.params.errorMsg[1]("missing user nick");
       return;
     }
 
+    // actual user request request error treatment
     let userInfo: UserRepoResponse | undefined;
     try {
       userInfo = await this.userRepo.getUserInfo(userNick);
     } catch (error) {
       const err: AxiosError<UserRepoResponseError> = error as any;
-
-      console.log("err", err);
 
       this.params.errorMsg[1](
         err.response?.data.message || 'Unidentified error :"('

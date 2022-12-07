@@ -10,43 +10,63 @@ html
 .g-background
   background-color: $color-background
 
-.g-form-field
+.g-form
   display: flex
-  align-items: center
-  justify-content: center
   flex-direction: column
+  align-items: center
 
-  label
-    color: $color-white
-    margin-bottom: .5rem
+  .g-form-field__error
+    color: $color-error
+    font-weight: bold
+    margin-top: 1rem
+    height: 1.25rem
 
-  .g-form-field__input-wrapper
-    padding: 1rem 0
-    height: 2rem
+    p
+      margin: 0
+
+  .g-form-field
     display: flex
-    flex-direction: row
+    align-items: center
+    justify-content: center
+    flex-direction: column
 
-    .g-form-field__input-icon
-      color: $color-black
-      background-color: $color-white
-      border-radius: 0.5rem 0 0 0.5rem
-      padding-left: .5rem
-      padding-right: .125rem
-      height: 100%
+    label
+      color: $color-white
+      margin-bottom: .5rem
+
+    .g-form-field__input-wrapper
+      height: 2rem
       display: flex
-      flex-direction: column
-      justify-content: center
-      user-select: none
+      flex-direction: row
+      border: 2px solid transparent
+      transition: border 500ms
 
-    input
-      border-top-right-radius: 0.5rem
-      border-bottom-right-radius: 0.5rem
-      border-style: none
-      height: 100%
-      padding: 0rem
+      .g-form-field__input-icon
+        color: $color-black
+        background-color: $color-white
+        border-radius: $border-radius-g-interactives 0 0 $border-radius-g-interactives
+        padding-left: .5rem
+        padding-right: .125rem
+        height: 100%
+        display: flex
+        flex-direction: column
+        justify-content: center
+        user-select: none
 
-      &:focus
-        outline: none
+      input
+        border-top-right-radius: $border-radius-g-interactives
+        border-bottom-right-radius: $border-radius-g-interactives
+        border-style: none
+        height: 100%
+        padding: 0rem
+        padding-right: 1rem
+
+        &:focus
+          outline: none
+
+    .g-form-field__input-wrapper--rejected
+      border: 2px solid $color-error
+      border-radius: $border-radius-g-interactives
 
 .g-button
   background-color: $color-primary
@@ -56,10 +76,12 @@ html
   color: $color-white
   cursor: pointer
   font-size: 1rem
-  padding: .5rem .75rem
+  padding: .75rem 1rem
+  margin-top: 1.5rem
   vertical-align: baseline
   transition: background-color 500ms
+  text-transform: uppercase
 
   &:hover:not([disabled]),
   &:focus
-    background-color: $color-primary-white10
+    background-color: $color-primary-white20
