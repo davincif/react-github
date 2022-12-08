@@ -1,25 +1,30 @@
 import { useState } from "react";
 
 import style from "./search.module.sass";
-import { SaerchPresenter } from "./search.presenter";
 import { useNavigate } from "react-router-dom";
+import searchPresenter from "./search.presenter";
 
 function Search() {
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [userNick, setUserNick] = useState("");
   const navigate = useNavigate();
 
-  const searchPresenter = new SaerchPresenter({
-    errorMsg: [errorMsg, setErrorMsg],
-  });
-
   async function getUserInfo(event: React.FormEvent<HTMLFormElement>) {
+    setIsLoading(true);
+
     try {
-      var userInfo = await searchPresenter.searchGithubUser(event, userNick);
+      var userInfo = await searchPresenter.searchGithubUser(
+        event,
+        userNick,
+        setErrorMsg
+      );
     } catch (error) {
+      setIsLoading(false);
       throw error;
     }
 
+    setIsLoading(false);
     navigate("/user", { state: { user: userInfo } });
   }
 
@@ -50,6 +55,8 @@ function Search() {
                   setUserNick(event.target.value);
                   setErrorMsg("");
                 }}
+                autoFocus
+                disabled={isLoading}
               />
             </div>
           </div>

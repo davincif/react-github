@@ -3,58 +3,49 @@ import { AxiosError } from "axios";
 
 import { UserRepo } from "../../repositories/users/usersRepo";
 import {
-  UserRepoResponse,
-  UserRepoResponseError,
+  UserProfileResponse,
+  UserProfileResponseError,
 } from "../../model/repositores/UserRepo";
 
-interface SaerchPresenterData {
-  /** Error msg to be presented on the generically on the form */
-  errorMsg: [string, Dispatch<SetStateAction<string>>];
-}
+const userRepo = UserRepo.getInstance();
 
-export class SaerchPresenter {
-  private userRepo: UserRepo;
-  private params: SaerchPresenterData;
+/**
+ * Saerch on Github the requested user profile
+ * @param event button or form input event so the function can stop the
+ * propagation of undesired actions
+ * @param userNick The requrest user nick on Github
+ * @param setErrorMsg The requrest user nick on Github
+ * @returns All the users info from Github
+ */
+async function searchGithubUser(
+  event: React.FormEvent<HTMLFormElement>,
+  userNick: string,
+  setErrorMsg: Dispatch<SetStateAction<string>>
+) {
+  event.stopPropagation();
+  event.preventDefault();
 
-  constructor(params: SaerchPresenterData) {
-    this.userRepo = UserRepo.getInstance();
-    this.params = params;
+  // params consistency check
+  if (!userNick) {
+    setErrorMsg("missing user nick");
+    throw Error("");
   }
 
-  /**
-   * Saerch on Github the requested user profile
-   * @param event button or form input event so the function can stop the
-   * propagation of undesired actions
-   * @param userNick The requrest user nick on Github
-   * @returns All the users info from Github
-   */
-  public async searchGithubUser(
-    event: React.FormEvent<HTMLFormElement>,
-    userNick: string
-  ) {
-    event.stopPropagation();
-    event.preventDefault();
+  // actual user request request error treatment
+  let userInfo: UserProfileResponse | undefined;
+  try {
+    userInfo = await userRepo.getUserInfo(userNick);
+  } catch (error) {
+    const err: AxiosError<UserProfileResponseError> = error as any;
 
-    // params consistency check
-    if (!userNick) {
-      this.params.errorMsg[1]("missing user nick");
-      throw null;
-    }
+    setErrorMsg(err.response?.data.message || 'Unidentified error :"(');
 
-    // actual user request request error treatment
-    let userInfo: UserRepoResponse | undefined;
-    try {
-      userInfo = await this.userRepo.getUserInfo(userNick);
-    } catch (error) {
-      const err: AxiosError<UserRepoResponseError> = error as any;
-
-      this.params.errorMsg[1](
-        err.response?.data.message || 'Unidentified error :"('
-      );
-
-      throw error;
-    }
-
-    return userInfo;
+    throw error;
   }
+
+  return userInfo;
 }
+
+export default {
+  searchGithubUser,
+};

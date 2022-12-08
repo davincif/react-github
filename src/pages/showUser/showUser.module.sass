@@ -1,7 +1,10 @@
 @import "../../general"
+@import "../../variables"
 
 .wrapper
   display: flex
+  min-width: $min-width-screen
+  min-height: $min-height-screen
 
 .profile
   display: flex
@@ -9,12 +12,13 @@
   align-items: center
   justify-content: flex-start
 
-  height: 100vh
+  height: max(100vh, $min-height-screen)
   width: 15rem
   background-color: $color-primary-white10
   border: solid
   border-color: $color-primary
   border-width: 0 2px 0 0
+  flex-shrink: 0
 
   img
     border-radius: 1rem

@@ -1,0 +1,60 @@
+@import "../../variables"
+
+.list
+  display: grid
+  grid-template-columns: repeat(2, 1fr)
+  grid-template-rows: repeat(5, calc(calc(max(100vh, $min-height-screen) - $size-pagination-controllers - 2rem) / 5))
+  padding: 1rem
+
+.wrapper
+  width: 100%
+
+.item
+  background-color: $color-secondary
+  border-radius: $border-radius-g-cards
+  margin: 1rem
+  padding: 1rem
+  color: white
+  display: flex
+  flex-direction: column
+
+  /* for Internet Explorer, Edge */
+  -ms-overflow-style: none
+  /* for Firefox */
+  scrollbar-width: none
+  overflow-y: scroll
+  webkit-scrollbar: none
+  /* for Chrome, Safari, and Opera */
+  &::-webkit-scrollbar
+    display: none
+
+  > *
+    &:nth-child(1)
+      margin-bottom: 0.5rem
+
+.controllers
+  width: 100%
+  display: flex
+  justify-content: center
+
+  > *
+    margin: 0 .5rem
+
+    &:first-child
+      margin-left: 0
+
+    &:last-child
+      margin-right: 0
+
+.pagination
+  color: $color-white
+  display: flex
+  justify-content: center
+  align-items: center
+
+.notFound
+  display: flex
+  color: $color-white
+  justify-content: center
+  align-items: center
+  height: 100vh
