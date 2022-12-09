@@ -21,8 +21,8 @@ function UserRepos({ repos }: { repos: UserRepoFiltered[] }) {
           <div className={style.list}>
             {repositories.map((e, index) => (
               <div className={style.item} key={"item-" + index.toString()}>
-                <span className={style["item--name"]}>{e.name}</span>
-                <span>{e?.description || "~ empty ~"}</span>
+                <span aria-label="repository name"  className={style["item--name"]}>{e.name}</span>
+                <span aria-label="repository description"> {e?.description || "~ empty ~"}</span>
               </div>
             ))}
           </div>

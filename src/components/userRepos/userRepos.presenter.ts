@@ -1,4 +1,7 @@
 import { UserRepoFiltered } from "../../model/views/showerUser";
+import { UserRepo } from "../../repositories/users/usersRepo";
+
+const userRepo = UserRepo.getInstance();
 
 /**
  * Updates the repositories according to the parameters in

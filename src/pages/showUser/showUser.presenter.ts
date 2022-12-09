@@ -15,7 +15,6 @@ async function getRepos(
   userNick: string,
   setRepos: Dispatch<SetStateAction<UserRepoFiltered[]>>
 ): Promise<UserRepoFiltered[]> {
-  console.log("userNick", userNick);
 
   // check cached answer
   const repos = await userRepo.getUserRepos(userNick);

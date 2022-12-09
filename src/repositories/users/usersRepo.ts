@@ -42,16 +42,23 @@ export class UserRepo {
    */
   public async getUserRepos(
     userNick: string,
-    type = "public",
-    sorts = "created",
-    per_page = 100,
-    page = 1
+    params = { type: "public", sorts: "created", per_page: 100, page: 1 }
   ) {
-    const userInfo = await axios.get<UserReposResponse[]>(
-      `${this.githubHost}/users/${userNick}/repos`,
-      { params: { type, sorts, per_page, page } }
-    );
+    let { type, sorts, per_page, page } = params;
+    let repos: UserReposResponse[] = [];
 
-    return userInfo.data;
+    do {
+      var userInfo = await axios.get<UserReposResponse[]>(
+        `${this.githubHost}/users/${userNick}/repos`,
+        { params: { type, sorts, per_page, page } }
+      );
+
+      if (userInfo.data.length > 0) {
+        repos = repos.concat(userInfo.data);
+        page++;
+      }
+    } while (userInfo.data.length >= per_page);
+
+    return repos;
   }
 }

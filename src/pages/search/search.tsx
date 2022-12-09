@@ -54,13 +54,13 @@ function Search() {
                 type="text"
                 name="userNick"
                 placeholder="davincif"
+                aria-label="type the github user nick name to be searched"
                 value={userNick}
                 onChange={(event) => {
                   setUserNick(event.target.value);
                   setErrorMsg("");
                 }}
                 autoFocus
-                disabled={isLoading}
               />
             </div>
           </div>
@@ -69,7 +69,8 @@ function Search() {
             id="search-button-searchUser"
             className="g-button"
             type="submit"
-            aria-label={`saerch for the user: ${userNick}`}
+            disabled={isLoading}
+            aria-label={userNick ? `saerch for the user: ${userNick}` : "type the github user nick name in above input"}
           >
             Search User
           </button>
