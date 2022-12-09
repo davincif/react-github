@@ -3,20 +3,23 @@ import { useEffect, useState } from "react";
 import style from "./userRepos.module.sass";
 import { UserRepoFiltered } from "../../model/views/showerUser";
 import userReposPresenter from "./userRepos.presenter";
+import InfiteProgressBar from "../infiteProgressBar/infiteProgressBar";
 
-function UserRepos({ repos }: { repos: UserRepoFiltered[] }) {
+function UserRepos({ repos }: { repos: UserRepoFiltered[] | undefined}) {
   /**First page being shown */
   const [page, setPage] = useState<number>(0);
   const [repositories, setRepositores] = useState<UserRepoFiltered[]>([]);
   const pageSize = 10;
 
   useEffect(() => {
-    userReposPresenter.updatePagination(page, pageSize, repos, setRepositores);
+    if (repos){
+      userReposPresenter.updatePagination(page, pageSize, repos, setRepositores);
+    }
   }, [repos]);
 
   return (
     <div className={style.wrapper}>
-      {repositories.length > 0 ? (
+      {repos && repos.length > 0 ? (
         <>
           <div className={style.list}>
             {repositories.map((e, index) => (
@@ -112,7 +115,7 @@ function UserRepos({ repos }: { repos: UserRepoFiltered[] }) {
         </>
       ) : (
         <div className={style.notFound}>
-          <h3>No repository to be shown</h3>
+          {repos && repos.length === 0 ? (<h3>No repository to be shown</h3>) : <InfiteProgressBar/>}
         </div>
       )}
     </div>

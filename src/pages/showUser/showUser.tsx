@@ -15,7 +15,7 @@ function ShowUsers() {
   );
   const [userName, setUserName] = useState<string>("");
   const [userNick, setUserNick] = useState<string>("");
-  const [repos, setRepos] = useState<UserRepoFiltered[]>([]);
+  const [repos, setRepos] = useState<UserRepoFiltered[]>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function ShowUsers() {
       <div className={style.profile}>
         <img src={avatar} alt="user" />
         <p>{userName}</p>
-        <p>Repositories: {repos.length}</p>
+        <p>Repositories: {repos?.length ?? 0}</p>
         <button
           id="showUser-button-back"
           className="g-button g-button-info"
