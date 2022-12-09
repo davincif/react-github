@@ -19,6 +19,11 @@ function ShowUsers() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!location.state) {
+      navigate("/");
+      return;
+    }
+
     const userInfo = location.state.user as UserProfileResponse;
     setAvatar(userInfo.avatar_url);
     setUserName(userInfo.name || userInfo.login);
