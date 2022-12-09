@@ -10,6 +10,10 @@ function Search() {
   const [userNick, setUserNick] = useState("");
   const navigate = useNavigate();
 
+  /**
+   * Saerchs the given user on github, navigates to the user page in success
+   * @param event the submit or click event
+   */
   async function getUserInfo(event: React.FormEvent<HTMLFormElement>) {
     setIsLoading(true);
 
@@ -46,9 +50,9 @@ function Search() {
             >
               <div className="g-form-field__input-icon">@</div>
               <input
+                id="search-input-userNick"
                 type="text"
                 name="userNick"
-                id="search_user-nick"
                 placeholder="davincif"
                 value={userNick}
                 onChange={(event) => {
@@ -61,7 +65,12 @@ function Search() {
             </div>
           </div>
 
-          <button className="g-button" type="submit">
+          <button
+            id="search-button-searchUser"
+            className="g-button"
+            type="submit"
+            aria-label={`saerch for the user: ${userNick}`}
+          >
             Search User
           </button>
 

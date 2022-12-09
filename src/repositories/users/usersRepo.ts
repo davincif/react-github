@@ -27,12 +27,8 @@ export class UserRepo {
   /**
    * Saerchs a given user on the github server
    * @param userNick Github user name to be searched
-   * @param ignoreCache ignore any possibly cached request
    */
-  public async getUserInfo(
-    userNick: string,
-    ignoreCache = false
-  ): Promise<UserProfileResponse> {
+  public async getUserInfo(userNick: string): Promise<UserProfileResponse> {
     const userInfo = await axios.get<UserProfileResponse>(
       `${this.githubHost}/users/${userNick}`
     );
@@ -43,11 +39,17 @@ export class UserRepo {
   /**
    * Gets all the repositories information the given user
    * @param userNick Github user name to be searched
-   * @param ignoreCache ignore any possibly cached request
    */
-  public async getUserRepos(userNick: string, ignoreCache = false) {
+  public async getUserRepos(
+    userNick: string,
+    type = "public",
+    sorts = "created",
+    per_page = 100,
+    page = 1
+  ) {
     const userInfo = await axios.get<UserReposResponse[]>(
-      `${this.githubHost}/users/${userNick}/repos`
+      `${this.githubHost}/users/${userNick}/repos`,
+      { params: { type, sorts, per_page, page } }
     );
 
     return userInfo.data;

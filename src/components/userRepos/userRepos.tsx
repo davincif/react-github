@@ -29,7 +29,9 @@ function UserRepos({ repos }: { repos: UserRepoFiltered[] }) {
 
           <div className={style.controllers}>
             <button
+              id="userRepo-btn-initialpage"
               className="g-button"
+              aria-label="go to last repository initial page"
               onClick={() =>
                 userReposPresenter.initialPage(
                   page,
@@ -45,7 +47,9 @@ function UserRepos({ repos }: { repos: UserRepoFiltered[] }) {
               </span>
             </button>
             <button
+              id="userRepo-btn-prevPage"
               className="g-button"
+              aria-label="go to last repository previous page"
               onClick={() =>
                 userReposPresenter.prevPage(
                   page,
@@ -58,12 +62,22 @@ function UserRepos({ repos }: { repos: UserRepoFiltered[] }) {
             >
               <span className="material-symbols-outlined">arrow_back</span>
             </button>
-            <div className={style.pagination}>
+
+            <div
+              className={style.pagination}
+              id="userRepos-page-indicator"
+              aria-label={`page ${
+                Math.ceil(page / pageSize) + 1
+              } of ${Math.ceil(repos.length / pageSize)}`}
+            >
               {Math.ceil(page / pageSize) + 1} /{" "}
               {Math.ceil(repos.length / pageSize)}
             </div>
+
             <button
+              id="userRepo-btn-nextPage"
               className="g-button"
+              aria-label="go to last repository next page"
               onClick={() =>
                 userReposPresenter.nextPage(
                   page,
@@ -77,6 +91,8 @@ function UserRepos({ repos }: { repos: UserRepoFiltered[] }) {
               <span className="material-symbols-outlined">arrow_forward</span>
             </button>
             <button
+              id="userRepo-btn-lastPage"
+              aria-label="go to last repository page"
               className="g-button"
               onClick={() =>
                 userReposPresenter.lastPage(

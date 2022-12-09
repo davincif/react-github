@@ -33,7 +33,12 @@ function ShowUsers() {
         <img src={avatar} alt="user" />
         <p>{userName}</p>
         <p>Repositories: {repos.length}</p>
-        <button className="g-button g-button-info" onClick={() => navigate(-1)}>
+        <button
+          id="showUser-button-back"
+          className="g-button g-button-info"
+          aria-label="get back to the last page"
+          onClick={() => navigate(-1)}
+        >
           back
         </button>
       </div>
